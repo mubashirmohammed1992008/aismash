@@ -45,11 +45,10 @@ export default function SearchBar({ initialValue = "" }) {
       />
       <button
         type="submit"
-        className={`absolute inset-y-1 right-1 flex items-center px-6 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
-          isUrl 
-            ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-teal-600 hover:to-emerald-500' 
+        className={`absolute inset-y-1 right-1 flex items-center px-6 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 ${isUrl
+            ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-teal-600 hover:to-emerald-500'
             : 'bg-gradient-to-r from-violet to-fuchsia-600 hover:from-fuchsia-600 hover:to-violet'
-        }`}
+          }`}
       >
         <Sparkles className="w-5 h-5 mr-2" />
         {isUrl ? 'Analyze' : 'Find'}

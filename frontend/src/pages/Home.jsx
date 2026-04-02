@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
 import { Search, BrainCircuit, Zap } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const EXAMPLES = ["iPhone 15", "Sony WH-1000XM5", "Samsung 4K TV"];
 
 export default function Home() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // Flash.co-style: if ?url= is in the query string, go straight to analyze
+  useEffect(() => {
+    const url = searchParams.get('url');
+    if (url) {
+      navigate(`/analyze?url=${encodeURIComponent(url)}`, { replace: true });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-violet-950/20 to-slate-900 pointer-events-none z-0"></div>
-      
-      {/* Radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-violet/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
       <Navbar />
@@ -53,25 +59,24 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Feature strip */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
           <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
             <div className="bg-blue-500/20 p-3 rounded-xl mb-4">
-               <Search className="w-6 h-6 text-blue-400" />
+              <Search className="w-6 h-6 text-blue-400" />
             </div>
             <h3 className="text-white font-semibold mb-2">Automated Browsing</h3>
             <p className="text-gray-400 text-sm">We scan multiple e-commerce sites simultaneously using Playwright.</p>
           </div>
           <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
             <div className="bg-violet/20 p-3 rounded-xl mb-4">
-               <BrainCircuit className="w-6 h-6 text-violet" />
+              <BrainCircuit className="w-6 h-6 text-violet" />
             </div>
             <h3 className="text-white font-semibold mb-2">AI Review Analysis</h3>
             <p className="text-gray-400 text-sm">GPT-4 processes thousands of reviews to generate accurate pros & cons.</p>
           </div>
           <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
             <div className="bg-emerald/20 p-3 rounded-xl mb-4">
-               <Zap className="w-6 h-6 text-emerald" />
+              <Zap className="w-6 h-6 text-emerald" />
             </div>
             <h3 className="text-white font-semibold mb-2">Best Deal Finder</h3>
             <p className="text-gray-400 text-sm">Smart scoring algorithm balances price and ratings to spot the best value.</p>

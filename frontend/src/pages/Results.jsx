@@ -15,9 +15,8 @@ export default function Results() {
 
   const isAnalyze = location.pathname.includes('/analyze');
   const query = isAnalyze ? searchParams.get('url') : searchParams.get('q');
-  
-  const [displayTitle, setDisplayTitle] = useState(query);
 
+  const [displayTitle, setDisplayTitle] = useState(query);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -34,11 +33,11 @@ export default function Results() {
       try {
         let result;
         if (isAnalyze) {
-           result = await analyzeUrl(query);
-           if (result.query) setDisplayTitle(result.query);
+          result = await analyzeUrl(query);
+          if (result.query) setDisplayTitle(result.query);
         } else {
-           result = await searchProducts(query);
-           setDisplayTitle(query);
+          result = await searchProducts(query);
+          setDisplayTitle(query);
         }
         setData(result);
       } catch (err) {
@@ -58,11 +57,11 @@ export default function Results() {
   return (
     <div className="min-h-screen flex flex-col relative">
       <div className="absolute inset-0 bg-slate-900 pointer-events-none z-0"></div>
-      
+
       <Navbar />
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 relative z-10">
-        <button 
+        <button
           onClick={() => navigate('/')}
           className="flex items-center text-gray-400 hover:text-white mb-6 transition-colors group"
         >
@@ -74,7 +73,7 @@ export default function Results() {
           <div>
             <h1 className="text-3xl font-bold text-white mb-2 flex items-center">
               {isAnalyze && <Link2 className="w-8 h-8 mr-3 text-emerald-400 shrink-0" />}
-              {isAnalyze && loading ? "Analyzing Link..." : "Results for: "} 
+              {isAnalyze && loading ? "Analyzing Link..." : "Results for: "}
               <span className={`ml-2 ${isAnalyze ? 'text-emerald-400' : 'text-violet'} line-clamp-1`} title={displayTitle}>
                 "{displayTitle}"
               </span>
@@ -89,27 +88,22 @@ export default function Results() {
 
         {error && (
           <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-6 flex items-start text-red-100 mb-8 max-w-2xl">
-             <AlertCircle className="w-6 h-6 mr-3 text-red-500 flex-shrink-0" />
-             <div>
-               <h3 className="font-bold text-red-400 mb-1">Search Failed</h3>
-               <p className="text-sm opacity-90">{error}</p>
-             </div>
+            <AlertCircle className="w-6 h-6 mr-3 text-red-500 flex-shrink-0" />
+            <div>
+              <h3 className="font-bold text-red-400 mb-1">Search Failed</h3>
+              <p className="text-sm opacity-90">{error}</p>
+            </div>
           </div>
         )}
 
         {!error && data && (
           <>
-            {/* Section 1: Best Deal */}
             <section className="mb-12">
               <BestDealBadge product={data.best_product} />
             </section>
-
-            {/* Section 2: AI Review Summary */}
             <section className="mb-12">
               <ReviewSummary review_summary={data.review_summary} />
             </section>
-
-            {/* Section 3: All Results Grid */}
             <section>
               <h2 className="text-2xl font-bold text-white mb-6">Compare All Options</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -4,7 +4,7 @@ import { ExternalLink, Tag, Trophy, CreditCard } from 'lucide-react';
 
 export default function ProductCard({ product }) {
   const { title, site, price, currency, rating, review_count, url, image_url, is_cheapest, is_top_rated, original_price, discount_percentage, offers } = product;
-  
+
   const siteColor = site.toLowerCase() === 'amazon' ? 'text-amber-500' : 'text-blue-500';
 
   return (
@@ -32,16 +32,16 @@ export default function ProductCard({ product }) {
           </a>
         </div>
       </div>
-      
+
       <div className="flex-1 flex flex-col">
         <h3 className="text-white font-medium line-clamp-2 mb-2 hover:text-violet transition-colors">
           <a href={url} target="_blank" rel="noreferrer">{title}</a>
         </h3>
-        
+
         <div className="mt-auto space-y-3">
           <StarRating rating={rating} />
           <div className="text-xs text-gray-400 mb-1">{review_count.toLocaleString()} reviews</div>
-          
+
           {offers && offers.length > 0 && (
             <div className="mt-3 bg-white/5 rounded-lg p-2 border border-white/5">
               <div className="text-[10px] uppercase font-bold text-gray-400 mb-1.5 flex items-center">
@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
               </ul>
             </div>
           )}
-          
+
           <div className="flex items-end justify-between pt-3 border-t border-white/10 mt-3">
             <div className="flex flex-col">
               {original_price && original_price > price && (
@@ -66,9 +66,9 @@ export default function ProductCard({ product }) {
                     {currency === 'INR' ? '₹' : '$'}{original_price.toLocaleString()}
                   </span>
                   {discount_percentage > 0 && (
-                     <span className="text-[10px] text-emerald-400 font-bold bg-emerald-400/10 px-1 rounded">
-                       {discount_percentage}% OFF
-                     </span>
+                    <span className="text-[10px] text-emerald-400 font-bold bg-emerald-400/10 px-1 rounded">
+                      {discount_percentage}% OFF
+                    </span>
                   )}
                 </div>
               )}
