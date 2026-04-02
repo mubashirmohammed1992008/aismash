@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+anthropic
+python-dotenv
+beautifulsoup4
+httpx
+playwright
+requests
+google-search-results
+pydantic

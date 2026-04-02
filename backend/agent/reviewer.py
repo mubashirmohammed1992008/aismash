@@ -17,15 +17,15 @@ async def generate_review(best_deal: Product, all_products: list[Product]) -> Re
     }
     
     try:
-        response = await client.chat.completions.create(
-            model="gpt-4o-mini",
+        response = await client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1024,
+            system=SYSTEM_REVIEWER_PROMPT,
             messages=[
-                {"role": "system", "content": SYSTEM_REVIEWER_PROMPT},
                 {"role": "user", "content": json.dumps(prompt_data)}
-            ],
-            response_format={"type": "json_object"}
+            ]
         )
-        content = response.choices[0].message.content
+        content = response.content[0].text
         data = json.loads(content)
         return ReviewSummary(
             pros=data.get("pros", ["Good price"]),
